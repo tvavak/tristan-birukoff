@@ -14,26 +14,60 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Menu mobile
-    navToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        navToggle.setAttribute('aria-expanded', 
-            navToggle.getAttribute('aria-expanded') === 'false' ? 'true' : 'false'
-        );
-    });
+    let overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    document.body.appendChild(overlay);
 
-    // Fermer le menu mobile lors du clic sur un lien
+    function toggleMenu() {
+        const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', !isExpanded);
+        navMenu.classList.toggle('active');
+        overlay.classList.toggle('active');
+        
+        if (!isExpanded) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    }
+
+    navToggle.addEventListener('click', toggleMenu);
+
+    // Fermer le menu lors du clic sur un lien
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
             navToggle.setAttribute('aria-expanded', 'false');
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
         });
+    });
+
+    // Fermer le menu lors du clic sur l'overlay
+    overlay.addEventListener('click', () => {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navMenu.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    // Fermer le menu avec la touche Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            navToggle.setAttribute('aria-expanded', 'false');
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     });
 
     // Fermer le menu mobile lors du clic en dehors
     document.addEventListener('click', (e) => {
-        if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+        if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && !overlay.contains(e.target)) {
             navMenu.classList.remove('active');
             navToggle.setAttribute('aria-expanded', 'false');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
         }
     });
 
