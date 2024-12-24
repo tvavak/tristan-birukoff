@@ -547,160 +547,215 @@
     }
 }
 
+--spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+  
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =======================
+   SECTION PASSIONS
+======================= */
+.section {
+  padding: var(--spacing-lg) 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* =======================
+   CONTAINER
+======================= */
+.passions-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+/* =======================
+   PASSION BOX
+======================= */
 .passion-box {
-    background: var(--white);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    margin-bottom: 2rem;
-    overflow: hidden;
-    transition: var(--transition);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: var(--transition-smooth);
 }
 
 .passion-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(139, 69, 19, 0.15);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
 }
 
+/* Header */
 .passion-header {
-    background: var(--primary-color);
-    padding: 1.5rem 2rem;
-    color: var(--white);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
+  background: var(--color-primary);
+  padding: var(--spacing-md);
+  cursor: pointer;
 }
 
-.passion-header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 100%;
-    height: 200%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
-    transform: rotate(45deg);
-    transition: var(--transition);
+.passion-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
-.passion-box:hover .passion-header::before {
-    transform: rotate(60deg) scale(1.5);
+.passion-title i {
+  color: var(--color-bg);
+  font-size: 1.25rem;
 }
 
-.passion-header h3 {
-    font-size: 1.3rem;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.passion-title h3 {
+  color: var(--color-bg);
+  font-size: 1.25rem;
+  margin: 0;
 }
 
-.passion-header i {
-    font-size: 1.5rem;
-    transition: var(--transition);
+.passion-indicator i {
+  color: var(--color-bg);
+  transition: var(--transition-fast);
 }
 
-.passion-header.active i {
-    transform: rotate(180deg);
+.passion-header.active .passion-indicator i {
+  transform: rotate(180deg);
 }
 
+/* Content */
 .passion-content {
-    padding: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.3s ease-in-out;
-    background: var(--white);
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-smooth);
 }
 
 .passion-content.active {
-    padding: 2rem;
-    max-height: 500px;
+  height: auto;
+  opacity: 1;
+  visibility: visible;
+  padding: var(--spacing-md);
 }
 
-.passion-content p {
-    color: var(--text-color);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
+.passion-description p {
+  color: var(--color-text);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
 }
 
-.passion-content ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+/* =======================
+   PASSION DETAILS
+======================= */
+.passion-details {
+  display: grid;
+  gap: var(--spacing-sm);
 }
 
-.passion-content li {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    padding-left: 1.5rem;
-    position: relative;
-    color: var(--text-color);
+.passion-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: var(--color-gray);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
 }
 
-.passion-content li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--primary-color);
-    transition: transform 0.3s ease;
+.passion-item:hover {
+  transform: translateX(4px);
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--color-gray));
 }
 
-.passion-box:hover .passion-content li::before {
-    transform: translateX(5px);
+.passion-item i {
+  color: var(--color-primary);
+  font-size: 1.25rem;
+  flex-shrink: 0;
 }
 
-.passion-content img {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    border-radius: var(--border-radius);
-    margin: 1.5rem 0;
+.passion-item-content {
+  flex: 1;
 }
 
-.passion-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-    margin-top: 1.5rem;
+.passion-item-content h4 {
+  color: var(--color-primary);
+  font-size: 1.1rem;
+  margin: 0 0 var(--spacing-xs) 0;
 }
 
-.passion-tag {
-    background: var(--cream);
-    color: var(--primary-color);
-    padding: 0.4rem 1rem;
-    border-radius: 15px;
-    font-size: 0.9rem;
-    transition: var(--transition);
+.passion-item-content p {
+  color: var(--color-text);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.4;
 }
 
-.passion-tag:hover {
-    background: var(--primary-color);
-    color: var(--white);
-    transform: scale(1.05);
-}
-
+/* =======================
+   RESPONSIVE
+======================= */
 @media (max-width: 768px) {
-    .passion-header {
-        padding: 1.2rem 1.5rem;
-    }
-
-    .passion-header h3 {
-        font-size: 1.1rem;
-    }
-
-    .passion-content.active {
-        padding: 1.5rem;
-    }
-
-    .passion-content img {
-        max-width: 100%;
-    }
+  .section {
+    padding: var(--spacing-md) 0;
+  }
+  
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .passions-container {
+    gap: var(--spacing-md);
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .passion-header {
+    padding: var(--spacing-sm);
+  }
+  
+  .passion-title h3 {
+    font-size: 1.1rem;
+  }
+  
+  .passion-content.active {
+    padding: var(--spacing-sm);
+  }
+  
+  .passion-item {
+    padding: var(--spacing-xs);
+  }
 }
 
+/* =======================
+   ANIMATIONS
+======================= */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.passion-content.active {
+  animation: slideDown var(--transition-smooth);
+}
 /* Variables et styles de base */
 :root {
     --primary-color: #8B4513; /* Marron riche */
